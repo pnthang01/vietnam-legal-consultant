@@ -1,0 +1,6 @@
+streamlit==1.42.2
+owlready2==0.47
+mirascope==1.19.0
+mirascope[openai]
+python-dotenv==1.0.1
+pydantic==2.10.6
