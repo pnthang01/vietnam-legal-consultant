@@ -6,7 +6,6 @@ from role import SocialRole, Function, played_by, Role, OrganisationRole
 
 onto = _my_ontology()
 
-
 class LegalRole(Thing):
     ontology = onto
 

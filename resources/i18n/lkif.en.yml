@@ -1,0 +1,8 @@
+en:
+  comment:
+    AbstractEntity: "An abstract entity is an entity that is not a physical object, but rather an abstract concept or idea."
+    MentalEntity: "A mental entity is an entity that is not a physical object, but rather an abstract concept or idea."
+    MentalObject: "A mental object is an object that is not a physical object, but rather an abstract concept or idea."
+    Occurrence: "An occurrence is an entity that is not a physical object, but rather an abstract concept or idea."
+    PhysicalEntity: "A physical entity is an entity that is not a physical object, but rather an abstract concept or idea."
+    s: "An occurrence in space-time."
