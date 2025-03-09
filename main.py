@@ -5,6 +5,8 @@ load_dotenv()
 from mirascope import llm
 from pydantic import BaseModel
 
+import streamlit as st
+
 class Book(BaseModel):
     title: str
     author: str
