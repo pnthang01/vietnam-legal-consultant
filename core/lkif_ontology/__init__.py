@@ -38,8 +38,13 @@ with onto:
     #role.owl
     Agent = types.new_class("Agent", (Thing,))
     Organisation = types.new_class("Organisation", (Thing,))
+    OrganisationRole = types.new_class("OrganisationRole", (Thing,))
 
 
 org_01 = Organisation("org_01", namespace=onto)
+c_level_01 = OrganisationRole("c_level_01", namespace=onto)
+Anna = Agent("Anna", namespace=onto, member_of=[org_01], played_by=[c_level_01])
 
-print(org_01)
+print(Anna.member_of)
+print(Anna.played_by)
+print(org_01.member)
