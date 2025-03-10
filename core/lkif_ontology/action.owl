@@ -238,58 +238,6 @@ The use of this ontology, and the OWL files through which it is distributed, is 
         <rdfs:comment rdf:datatype="&xsd;string"
             >An act which results in the creation of some entity/individual</rdfs:comment>
     </owl:Class>
-    
-
-
-    <!-- http://www.estrellaproject.org/lkif-core/action.owl#Natural_Object -->
-
-    <owl:Class rdf:about="#Natural_Object">
-        <rdfs:subClassOf rdf:resource="&process;Physical_Object"/>
-        <rdfs:comment rdf:datatype="&xsd;string"
-            >A natural object is an object not created by man.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.estrellaproject.org/lkif-core/action.owl#Organisation -->
-
-    <owl:Class rdf:about="#Organisation">
-        <owl:equivalentClass>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&mereology;member"/>
-                <owl:someValuesFrom rdf:resource="#Person"/>
-            </owl:Restriction>
-        </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="#Agent"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="&mereology;member"/>
-                <owl:allValuesFrom>
-                    <owl:Class>
-                        <owl:unionOf rdf:parseType="Collection">
-                            <rdf:Description rdf:about="#Organisation"/>
-                            <rdf:Description rdf:about="#Person"/>
-                        </owl:unionOf>
-                    </owl:Class>
-                </owl:allValuesFrom>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <owl:disjointWith rdf:resource="#Person"/>
-        <rdfs:comment rdf:datatype="&xsd;string"
-            >An organisation is a group of other organisations or persons which acts &#39;as one&#39;. An organisation can be both formal (i.e. created by law or decree) or informal.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.estrellaproject.org/lkif-core/action.owl#Person -->
-
-    <owl:Class rdf:about="#Person">
-        <rdfs:subClassOf rdf:resource="#Agent"/>
-        <rdfs:subClassOf rdf:resource="#Natural_Object"/>
-        <rdfs:comment rdf:datatype="&xsd;string"
-            >A person is an individual agent. Usually associated with &#39;human being&#39;.</rdfs:comment>
-    </owl:Class>
-    
 
 
     <!-- http://www.estrellaproject.org/lkif-core/action.owl#Personal_Plan -->

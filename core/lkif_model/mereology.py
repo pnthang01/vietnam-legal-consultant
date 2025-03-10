@@ -87,10 +87,10 @@ class component_of(strict_part_of):
 
 AllDisjoint([Whole, Atom])
 
-gca__pair = GeneralClassAxiom(Composition & strict_part.exactly(2, Part))
+gca__pair = GeneralClassAxiom(Part & strict_part.exactly(2, Part))
 gca__pair.is_a.append(Pair)
 
-gca__part = GeneralClassAxiom(AbstractEntity & strict_part_of.all(Whole))
+gca__part = GeneralClassAxiom(strict_part_of.all(Whole) | strict_part_of.all(Whole))
 gca__part.is_a.append(Part)
 
 gca__whole = GeneralClassAxiom(AbstractEntity & strict_part.all(Part))

@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xml:base="http://test.org/Family"
+         xmlns="http://test.org/Family#">
+
+<owl:Ontology rdf:about="http://test.org/Family"/>
+
+<owl:ObjectProperty rdf:about="#has_couple">
+  <rdfs:domain rdf:resource="#Human"/>
+  <rdfs:range rdf:resource="#Human"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#has_wife">
+  <rdfs:subPropertyOf rdf:resource="#has_couple"/>
+  <rdfs:domain rdf:resource="#Man"/>
+  <rdfs:range rdf:resource="#Woman"/>
+  <owl:inverseOf rdf:resource="#has_husbend"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#has_husbend">
+  <rdfs:subPropertyOf rdf:resource="#has_couple"/>
+  <owl:inverseOf rdf:resource="#has_wife"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#has_child">
+  <rdfs:domain rdf:resource="#Human"/>
+  <rdfs:range rdf:resource="#Human"/>
+  <owl:inverseOf rdf:resource="#has_parent"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#has_parent">
+  <owl:inverseOf rdf:resource="#has_child"/>
+</owl:ObjectProperty>
+
+<owl:Class rdf:about="#Human">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Man">
+  <rdfs:subClassOf rdf:resource="#Human"/>
+  <owl:disjointWith rdf:resource="#Woman"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Woman">
+  <rdfs:subClassOf rdf:resource="#Human"/>
+</owl:Class>
+
+<owl:NamedIndividual rdf:about="#Kevin">
+  <rdf:type rdf:resource="#Man"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Viper">
+  <rdf:type rdf:resource="#Woman"/>
+  <has_husbend rdf:resource="#Kevin"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#John">
+  <rdf:type rdf:resource="#Man"/>
+  <has_parent rdf:resource="#Kevin"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Anna">
+  <rdf:type rdf:resource="#Woman"/>
+  <has_parent rdf:resource="#Kevin"/>
+</owl:NamedIndividual>
+
+
+</rdf:RDF>
