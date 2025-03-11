@@ -26,13 +26,30 @@ en:
     component: "Specifies that some thing is a (functional) component of some other thing"
     component_of: "Specifies that some thing is a (functional) component of some other thing"
 
+    #actor.owl
+    Action: "An action is a change which is brought about by a single agent, playing a role. The agent is the holder of some indended outcome of the action: an action is always intentional. The intention of the agent has usually corresponds with an expectation the intended outcome to be brought about: the agent believes in some expectation. Note that the intention might not correspond with the *actual* outcome of the action."
+    Agent: "An agent is any owl:Thing which can act, i.e. play the &#39;actor&#39; role wrt. an action. It is a holder for propositional attitudes"
+    Artifact: "A physical object created by some person to fulfill a particular purpose"
+    CollaborativePlan: "A collaborative plan is a plan which is shared (and executed) between at least two agents a and b. "
+    Creation: "An act which results in the creation of some entity/individual"
+    NaturalObject: "A natural object is an object not created by man."
+    Organisation: "An organisation is a group of other organisations or persons which acts &#39;as one&#39;. An organisation can be both formal (i.e. created by law or decree) or informal."
+    Person: "A person is an individual agent. Usually associated with &#39;human being&#39;."
+    PersonalPlan: "A personal plan is a plan which is held (and can be executed) by at most one agent."
+    Plan: "A plan is a structure of multiple other plans or actions. These can be both sequential or concurrent. Usually a plan is referred to in the context of the intention to act of some agent, however when executed the plan itself comes into effect."
+    Reaction: "A reaction is an action that is (at least) performed by an agent that has observed some other action (this is an intensional view): Action &lt;-&gt; Reaction"
+    Trade: "A trade is an exchange of some things between two agents a and b. Consists of two actions A and B where a is the actor of action A and the recipient of action B, and vice versa. Usually these actions are performed concurrently, but these may also be done consequently. The ownership of the things being traded is the requirement/result pair for each action."
+    Transaction: "A transaction is an exchange or interaction between at least two agents a and b. Consists of two actions A and B where a is the actor of action A and the recipient of action B, and vice versa. Usually these actions are performed concurrently, but these may also be done consequently."
+    actor: "Specifies that some participant is an actor in the action."
+    actor_in: "Specifies that the participant is an actor in some action."
+
     LegalRole: "A legal role is a role played in a legal context. Legal role players can be both Agents and other 'things'"
     SocialLegalRole: "A social legal role is played by some agent in the context of legal activities."
     ProfessionalLegalRole: "A professional legal role is a legal profession of some person, examples: lawyer, judge etc."
 
-    NaturalObject: "A natural object is an object not created by man."
-    Person: "A person is an individual agent. Usually associated with &#39;human being&#39;."
+
+
 
     PhysicalObject: "A physical object is a physical entity consisting of matter, it has a spatio-temporal extension."
-    Organisation: "An organisation is a group of other organisations or persons which acts &#39;as one&#39;. An organisation can be both formal (i.e. created by law or decree) or informal."
+
     OrganisationRole: "A role which has a meaning in the context of an organisation: i.e. the role defines a &#39;position&#39; within sthe structure of roles within an organisation"
