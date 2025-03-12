@@ -241,6 +241,87 @@ with onto:
     AllDisjoint([Organisation, Person])
     AllDisjoint([Change, PhysicalObject])
     #end action.owl
+    #expression.owl
+    # class addressee(ObjectProperty):
+    #     comment = i18n.t("lkif.comment.addressee")
+    #     domain = [CommunicatedAttitude]
+    #     range = [Agent]
+    # class asserted_by(stated_by):
+    #     comment = i18n.t("lkif.comment.asserted_by")
+    #     range = [Assertion]
+    #     domain = [Expression]
+    # class asserts(states):
+    #     comment = i18n.t("lkif.comment.asserts")
+    #     domain = [Assertion]
+    #     range = [Expression]
+    #     inverse_property = asserted_by
+    # class attitude(counts_as):
+    #     comment = i18n.t("lkif.comment.attitude")
+    #     domain = [Proposition]
+    #     range = [PropositionalAttitude]
+    #     inverse_property = towards
+    # class author(utterer):
+    #     comment = i18n.t("lkif.comment.author")
+    # class bears(ObjectProperty):
+    #     comment = i18n.t("lkif.comment.bears")
+    #     domain = [Medium]
+    #     range = [Expression]
+    # class believed_by(held_by):
+    #     comment = i18n.t("lkif.comment.believed_by")
+    #     domain = [Belief]
+    #     range = [Agent]
+    # class believes(holds):
+    #     comment = i18n.t("lkif.comment.believes")
+    #     domain = [Agent]
+    #     range = [Belief]
+    #     inverse_property = believed_by
+    # class declared_by(stated_by):
+    #     comment = i18n.t("lkif.comment.declared_by")
+    #     domain = [Expression]
+    #     range = [Declaration]
+    # class declares(states):
+    #     comment = i18n.t("lkif.comment.declares")
+    #     domain = [Declaration]
+    #     range = [Expression]
+    #     inverse_property = declared_by
+    # class evaluated_by(qualified_by, attitude):
+    #     comment = i18n.t("lkif.comment.evaluated_by")
+    #     domain = [EvaluativeProposition]
+    #     range = [EvaluativeAttitude]
+    # class evaluates(qualifies, towards):
+    #     comment = i18n.t("lkif.comment.evaluates")
+    #     domain = [EvaluativeAttitude]
+    #     range = [EvaluativeProposition]
+    #     inverse_property = evaluated_by
+    # class evaluatively_comparable(SymmetricProperty, qualitatively_comparable):
+    #     comment = i18n.t("lkif.comment.evaluatively_comparable")
+    #     domain = [EvaluativeProposition]
+    #     range = [EvaluativeProposition]
+    # Inverse(evaluatively_comparable)
+    # class held_by(ObjectProperty):
+    #     comment = i18n.t("lkif.comment.held_by")
+    #     domain = [MentalObject]
+    #     range = [Agent]
+    # class holds(ObjectProperty):
+    #     comment = i18n.t("lkif.comment.holds")
+    #     domain = [Agent]
+    #     range = [MentalObject]
+    #     inverse_property = held_by
+    # class intended_by(held_by):
+    #     comment = i18n.t("lkif.comment.intended_by")
+    #     domain = [Intention]
+    #     range = [Agent]
+    # class intends(holds):
+    #     comment = i18n.t("lkif.comment.intends")
+    #     domain = [Agent]
+    #     range = [Intention]
+    #     inverse_property = intended_by
+    # class medium(ObjectProperty):
+    #     comment = i18n.t("lkif.comment.medium")
+    #     domain = [Expression]
+    #     range = [Medium]
+    #     inverse_property = bears
+
     #Left over
     Change.is_a.append(part.only(Change))
 
