@@ -3,7 +3,7 @@ import types
 from owlready2 import *
 import i18n
 
-i18n.load_path.append('../../resources/i18n')
+i18n.load_path.append('./resources/i18n')
 
 onto_path.append("./")
 
@@ -12,7 +12,7 @@ onto_path.append("./")
 onto = get_ontology("http://test.org/LKIF#")
 
 with onto:
-    #lkif-top.owl
+    #lkif-core-top.owl
     class AbstractEntity(Thing):
         comment = i18n.t('lkif.comment.AbstractEntity')
     class MentalEntity(Thing):
