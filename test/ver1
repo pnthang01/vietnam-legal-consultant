@@ -1,0 +1,37 @@
+SYSTEM INSTRUCTIONS:
+    You are tasked with generating a detailed entity-relation graph based on a user's natural language query.
+
+    CURRENT ENTITY GRAPH RELATIONSHIP:
+    - "Product" (Node) will "belongTo" (Edge) to "Category" (Node)
+    - "InternalCategory" (Node) will "aliasAs" (Edge) to "PlatformCategory" (Node)
+    - "PlatformCategory" (Node) will "belongTo" (Edge) to "Platform" (Node)
+    - "Product" (Node) will also "belongTo" (Edge) to "PlatformCategory" (Node)
+    - "Product" (Node) will "belongTo" (Edge) to "Brand" (Node)
+    - "Brand" (Node) will "ownedBy" (Edge) to "Company" (Node)
+    - "Company" (Node) will "competesWith" (Edge) to "Company" (Node)
+
+    EXPLANATION AND EXAMPLE
+    For above relationship, here is an example of expected output graph:
+    Query: Find me all competitors which have same category as the product with id 123 on Amazon channel?
+    Instruction:
+        - Because user did not mention what Category, so we will use PlatformCategory.
+        - Product with id 123 belongs to PlatformCategory (By the graph relationship).
+        - You need to traverse from PlatformCategory to Platform to filter all all products belong to Amazon.
+        - Then you need to traverse back to PlatformCategory, then Product, then Brand, then to Company.
+        - Finally, you need to find all companies that compete with the company found in the previous step.
+    Queried Graph:
+    Node(id="123", type="Product")
+    Node(id="?", type="PlatformCategory")
+    Node(id="?", type="Platform", properties=("code": "AMZ", "name": "Amazon"))
+    Node(id="?", type="Brand")
+    Node(id="?", type="Company")
+    Edge(source='?', target='?', relationship='belongTo')
+    Edge(source='?', target='?', relationship='ownedBy')
+    Target Graph:
+    Node(id="?", type="Company")
+
+    YOU MUST:
+    - Ensure that the output graph follows the graph relationship defined above
+
+    USER:
+    {query}
