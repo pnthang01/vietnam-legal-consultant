@@ -3,7 +3,7 @@ import types
 from owlready2 import *
 import i18n
 
-i18n.load_path.append('./resources/i18n')
+i18n.load_path.append('../../resources/i18n')
 
 onto_path.append("./")
 
@@ -536,6 +536,36 @@ with onto:
     MentalObject.is_a.append(held_by.some(Agent))
     MentalObject.is_a.append(held_by.only(Agent))
     AllDisjoint([Expectation, Observation])
+    # norm.owl
+    class HohfeldianPower(PotestativeExpression):
+        comment = i18n.t('lkif.comment.HohfeldianPower')
+    class NormativelyQualified(Qualified):
+        comment = i18n.t('lkif.comment.NormativelyQualified')
+    class SoftLaw(LegalSource):
+        comment = i18n.t('lkif.comment.SoftLaw')
+    class StrictlyDisallowed(Disallowed):
+        comment = i18n.t('lkif.comment.StrictlyDisallowed')
+    class PermissiveRight(Right):
+        comment = i18n.t('lkif.comment.PermissiveRight')
+    class Proclamation(LegalSource):
+        comment = i18n.t('lkif.comment.Proclamation')
+    class LegalExpression(Expression):
+        comment = i18n.t('lkif.comment.LegalExpression')
+    class QualificatoryExpression(LegalExpression):
+        comment = i18n.t('lkif.comment.QualificatoryExpression')
+    class EnablingPower(PotestativeExpression):
+        comment = i18n.t('lkif.comment.EnablingPower')
+    class ExistentialExpression(LegalExpression):
+        comment = i18n.t('lkif.comment.ExistentialExpression')
+    class CodeOfConduct(LegalDocument, SoftLaw):
+        comment = i18n.t('lkif.comment.CodeOfConduct')
+    class Regulation(LegalDocument):
+        comment = i18n.t('lkif.comment.Regulation')
+    LegalExpression.is_a.append(attitude.some(created_by.some(PublicAct)))
+    Regulation.is_a.append(bears.some(And([Norm, utterer.some(LegislativeBody)])))
+    Regulation.is_a.append(bears.only(utterer.some(LegislativeBody)))
+    NormativelyQualified.is_a.append(qualified_by.some(Norm))
+    NormativelyQualified.is_a.append(normatively_comparable.some(NormativelyQualified))
     #Left over
     # Change.is_a.append(part.only(Change))
 
@@ -544,7 +574,7 @@ Org_01 = Organisation("Org1", member_of=[Corp_01])
 Anna = Person("Anna", member_of=[Org_01])
 
 with onto:
-    test = sync_reasoner_pellet(infer_property_values=True, infer_data_property_values = True)
+    test = sync_reasoner_pellet(infer_property_values=True, infer_data_property_values=True)
     print(test)
 
 print(Anna.member_of)
