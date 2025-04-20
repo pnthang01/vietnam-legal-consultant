@@ -3,6 +3,7 @@ import types
 from owlready2 import *
 import i18n
 
+
 i18n.load_path.append('../../resources/i18n')
 
 onto_path.append("./")
@@ -537,30 +538,137 @@ with onto:
     MentalObject.is_a.append(held_by.only(Agent))
     AllDisjoint([Expectation, Observation])
     # norm.owl
+    class LegalSource(Medium):
+        comment = i18n.t('lkif.comment.LegalSource')
+    class BeliefInViolation(Belief):
+        comment = i18n.t('lkif.comment.BeliefInViolation')
+    class Precedent(LegalSource):
+        comment = i18n.t('lkif.comment.Precedent')
+    class PersuasivePrecedent(Precedent):
+        comment = i18n.t('lkif.comment.PersuasivePrecedent')
+    class LegalExpression(Expression):
+        comment = i18n.t('lkif.comment.LegalExpression')
+    class PotestativeExpression(LegalExpression):
+        comment = i18n.t('lkif.comment.PotestativeExpression')
+    class Norm(Qualification):
+        comment = i18n.t('lkif.comment.Norm')
     class HohfeldianPower(PotestativeExpression):
         comment = i18n.t('lkif.comment.HohfeldianPower')
     class NormativelyQualified(Qualified):
         comment = i18n.t('lkif.comment.NormativelyQualified')
     class SoftLaw(LegalSource):
         comment = i18n.t('lkif.comment.SoftLaw')
+    class Right(Norm):
+        comment = i18n.t('lkif.comment.Right')
+    class ObligativeRight(Right):
+        comment = i18n.t('lkif.comment.ObligativeRight')
+    class Disallowed(NormativelyQualified):
+        comment = i18n.t('lkif.comment.Disallowed')
     class StrictlyDisallowed(Disallowed):
         comment = i18n.t('lkif.comment.StrictlyDisallowed')
+    class Allowed(NormativelyQualified):
+        comment = i18n.t('lkif.comment.Allowed')
+    class StrictlyAllowed(Allowed):
+        comment = i18n.t('lkif.comment.StrictlyAllowed')
+    class EnablingPower(PotestativeExpression):
+        comment = i18n.t('lkif.comment.EnablingPower')
+    class PotestativeRight(EnablingPower):
+        comment = i18n.t('lkif.comment.PotestativeRight')
+    class AllowedAndDisallowed(Allowed, Disallowed):
+        comment = i18n.t('lkif.comment.AllowedAndDisallowed')
     class PermissiveRight(Right):
         comment = i18n.t('lkif.comment.PermissiveRight')
     class Proclamation(LegalSource):
         comment = i18n.t('lkif.comment.Proclamation')
-    class LegalExpression(Expression):
-        comment = i18n.t('lkif.comment.LegalExpression')
+    class EvaluativeExpression(EvaluativeProposition, LegalExpression):
+        comment = i18n.t('lkif.comment.EvaluativeExpression')
+    class LibertyRight(Right):
+        comment = i18n.t('lkif.comment.LibertyRight')
     class QualificatoryExpression(LegalExpression):
         comment = i18n.t('lkif.comment.QualificatoryExpression')
-    class EnablingPower(PotestativeExpression):
-        comment = i18n.t('lkif.comment.EnablingPower')
     class ExistentialExpression(LegalExpression):
         comment = i18n.t('lkif.comment.ExistentialExpression')
+    class LegalDocument(LegalSource, Document):
+        comment = i18n.t('lkif.comment.LegalDocument')
     class CodeOfConduct(LegalDocument, SoftLaw):
         comment = i18n.t('lkif.comment.CodeOfConduct')
     class Regulation(LegalDocument):
         comment = i18n.t('lkif.comment.Regulation')
+    class Decree(Proclamation, LegalDocument):
+        comment = i18n.t('lkif.comment.Decree')
+    class InternationalAgreement(LegalSource):
+        comment = i18n.t('lkif.comment.InternationalAgreement')
+    class LegalDoctrine(LegalSource):
+        comment = i18n.t('lkif.comment.LegalDoctrine')
+    class Resolution(InternationalAgreement, SoftLaw):
+        comment = i18n.t('lkif.comment.Resolution')
+    class DeclarativePower(PotestativeExpression):
+        comment = i18n.t('lkif.comment.DeclarativePower')
+    class Contract(LegalDocument):
+        comment = i18n.t('lkif.comment.Contract')
+    class Custom(Medium):
+        comment = i18n.t('lkif.comment.Custom')
+    class ExclusionaryRight(ObligativeRight):
+        comment = i18n.t('lkif.comment.ExclusionaryRight')
+    class CustomaryLaw(LegalSource, Custom):
+        comment = i18n.t('lkif.comment.CustomaryLaw')
+    class ActionPower(HohfeldianPower):
+        comment = i18n.t('lkif.comment.ActionPower')
+    class Statute(LegalDocument):
+        comment = i18n.t('lkif.comment.Statute')
+    class InternationalArbitration(SoftLaw):
+        comment = i18n.t('lkif.comment.InternationalArbitration')
+    class Immunity(HohfeldianPower):
+        comment = i18n.t('lkif.comment.Immunity')
+    class Treaty(InternationalAgreement, LegalDocument):
+        comment = i18n.t('lkif.comment.Treaty')
+    class MandatoryPrecedent(Precedent):
+        comment = i18n.t('lkif.comment.MandatoryPrecedent')
+    class Code(LegalDocument):
+        comment = i18n.t('lkif.comment.Code')
+    class ObservationOfViolation(Problem):
+        comment = i18n.t('lkif.comment.ObservationOfViolation')
+    class Permission(Norm):
+        comment = i18n.t('lkif.comment.Permission')
+    class Prohibition(Permission):
+        comment = i18n.t('lkif.comment.Prohibition')
+    class Obligation(Permission, Prohibition):
+        comment = i18n.t('lkif.comment.Obligation')
+    class DisallowedIntention(Intention):
+        comment = i18n.t('lkif.comment.DisallowedIntention')
+    class LiabilityRight(Right):
+        comment = i18n.t('lkif.comment.LiabilityRight')
+    class Obliged(Allowed):
+        comment = i18n.t('lkif.comment.Obliged')
+    class NonBindingInternationalAgreement(InternationalAgreement, SoftLaw):
+        comment = i18n.t('lkif.comment.NonBindingInternationalAgreement')
+    class Directive(LegalDocument, Proclamation):
+        comment = i18n.t('lkif.comment.Directive')
+    class DefinitionalExpression(LegalExpression):
+        comment = i18n.t('lkif.comment.DefinitionalExpression')
+    AllDisjoint([Custom, Document])
+    AllDisjoint([Treaty, NonBindingInternationalAgreement])
+    Prohibition.is_a.append(And([allows.only(Obliged), allows.some(Obliged), disallows.only(Disallowed), disallows.some(Disallowed)]))
+    Prohibition.is_a.append(Obligation)
+    AllowedAndDisallowed.is_a.append(And([Disallowed, Allowed]))
+    Disallowed.is_a.append(disallowed_by.some(Prohibition))
+    Disallowed.is_a.append(normatively_strictly_better.some(Allowed))
+    Obliged.is_a.append(allowed_by.some(Obligation))
+    Obliged.is_a.append(normatively_strictly_worse.some(Disallowed))
+    Permission.is_a.append(And([allows.some(Allowed), allows.only(Allowed)]))
+    DisallowedIntention.is_a.append(And([Intention, towards.some(Disallowed)]))
+    Norm.is_a.append(qualifies.some(NormativelyQualified))
+    ObservationOfViolation.is_a.append(And([Observation, played_by.some(Disallowed)]))
+    Allowed.is_a.append(normatively_equivalent_or_worse.some(NormativelyQualified))
+    Allowed.is_a.append(allowed_by.some(Permission))
+    Code.is_a.append(bears.some(And([Norm, utterer.some(LegislativeBody)])))
+    Code.is_a.append(bears.only(utterer.some(LegislativeBody)))
+    Statute.is_a.append(bears.some(And([Norm, utterer.some(LegalPerson)])))
+    Statute.is_a.append(bears.only(utterer.some(LegalPerson)))
+    LegalSource.is_a.append(bears.some(Or([Norm, LegalExpression])))
+    Contract.is_a.append(bears.only(utterer.some(Or([NaturalPerson, LegalPerson]))))
+    Contract.is_a.append(bears.some(And([Norm, utterer.some(Or([NaturalPerson, LegalPerson]))])))
+    BeliefInViolation.is_a.append(And([towards.some(Disallowed), Belief]))
     LegalExpression.is_a.append(attitude.some(created_by.some(PublicAct)))
     Regulation.is_a.append(bears.some(And([Norm, utterer.some(LegislativeBody)])))
     Regulation.is_a.append(bears.only(utterer.some(LegislativeBody)))
