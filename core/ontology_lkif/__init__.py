@@ -3,7 +3,6 @@ import types
 from owlready2 import *
 import i18n
 
-
 i18n.load_path.append('../../resources/i18n')
 
 onto_path.append("./")
@@ -537,6 +536,69 @@ with onto:
     MentalObject.is_a.append(held_by.some(Agent))
     MentalObject.is_a.append(held_by.only(Agent))
     AllDisjoint([Expectation, Observation])
+    # legal-action.owl
+    class LegalPerson(Organisation):
+        comment = i18n.t('lkif.comment.LegalPerson')
+    class PrivateLegalPerson(LegalPerson):
+        comment = i18n.t('lkif.comment.PrivateLegalPerson')
+    class Company(PrivateLegalPerson):
+        comment = i18n.t('lkif.comment.Company')
+    class PublicLimitedCompany(Company):
+        comment = i18n.t('lkif.comment.PublicLimitedCompany')
+    class PublicAct(Action):
+        comment = i18n.t('lkif.comment.PublicAct')
+    class Association(PrivateLegalPerson):
+        comment = i18n.t('lkif.comment.Association')
+    class Mandate(PublicAct):
+        comment = i18n.t('lkif.comment.Mandate')
+    class Society(PrivateLegalPerson):
+        comment = i18n.t('lkif.comment.Society')
+    class Cooperative(Society):
+        comment = i18n.t('lkif.comment.Cooperative')
+    class LegalSpeechAct(SpeechAct):
+        comment = i18n.t('lkif.comment.LegalSpeechAct')
+    class ActOfLaw(PublicAct, LegalSpeechAct):
+        comment = i18n.t('lkif.comment.ActOfLaw')
+    class Delegation(LegalSpeechAct, PublicAct):
+        comment = i18n.t('lkif.comment.Delegation')
+    class NaturalPerson(Person):
+        comment = i18n.t('lkif.comment.NaturalPerson')
+    class PublicBody(LegalPerson):
+        comment = i18n.t('lkif.comment.PublicBody')
+    class Decision(LegalSpeechAct):
+        comment = i18n.t('lkif.comment.Decision')
+    class Corporation(PrivateLegalPerson):
+        comment = i18n.t('lkif.comment.Corporation')
+    class Foundation(Corporation):
+        comment = i18n.t('lkif.comment.Foundation')
+    class Incorporated(Corporation):
+        comment = i18n.t('lkif.comment.Incorporated')
+    class LegislativeBody(PublicBody):
+        comment = i18n.t('lkif.comment.LegislativeBody')
+    class Assignment(LegalSpeechAct, PublicAct):
+        comment = i18n.t('lkif.comment.Assignment')
+    class Unincorporated(Corporation):
+        comment = i18n.t('lkif.comment.Unincorporated')
+    class LimitedCompany(Company):
+        comment = i18n.t('lkif.comment.LimitedCompany')
+    AllDisjoint([PublicBody, PrivateLegalPerson])
+    AllDisjoint([Foundation, Unincorporated, Incorporated])
+    Unincorporated.is_a.append(LimitedCompany)
+    Assignment.is_a.append(strict_part_of.some(Transaction))
+    Assignment.is_a.append(actor.some(PublicBody))
+    Incorporated.is_a.append(PublicLimitedCompany)
+    ActOfLaw.is_a.append(actor.some(LegislativeBody))
+    Decision.is_a.append(creation.some(And([Promise, towards.some(PublicAct)])))
+    Decision.is_a.append(actor.some(PublicBody))
+    Decision.is_a.append(creation.some(And([StatementInWriting, towards.some(PublicAct)])))
+    Company.is_a.append(Or([LimitedCompany, PublicLimitedCompany]))
+    Delegation.is_a.append(actor.some(PublicBody))
+    Delegation.is_a.append(strict_part_of.some(Transaction))
+    Corporation.is_a.append(Or([Unincorporated, Foundation, Incorporated]))
+    Society.is_a.append(Association)
+    NaturalPerson.is_a.append(Person)
+    Mandate.is_a.append(strict_part_of.some(Transaction))
+    Mandate.is_a.append(actor.some(PublicBody))
     # norm.owl
     class LegalSource(Medium):
         comment = i18n.t('lkif.comment.LegalSource')
@@ -646,10 +708,50 @@ with onto:
         comment = i18n.t('lkif.comment.Directive')
     class DefinitionalExpression(LegalExpression):
         comment = i18n.t('lkif.comment.DefinitionalExpression')
+    class disallowed_by(qualified_by):
+        comment = i18n.t('lkif.comment.disallowed_by')
+        range = [Disallowed]
+    class disallows(qualifies):
+        comment = i18n.t('lkif.comment.disallows')
+        range = [Disallowed]
+        inverse_property = disallowed_by
+    class allowed_by(qualified_by):
+        comment = i18n.t('lkif.comment.allowed_by')
+        domain = [Allowed]
+    class allows(qualifies):
+        comment = i18n.t('lkif.comment.allows')
+        range = [Allowed]
+        inverse_property = allowed_by
+    class commanded_by(allowed_by):
+        domain = [Obliged]
+    class commands(allows):
+        range = [Obliged]
+        inverse_property = commanded_by
+    class normatively_comparable(qualitatively_comparable):
+        domain = [NormativelyQualified]
+        range = [NormativelyQualified]
+    class normatively_not_equivalent(normatively_comparable, SymmetricProperty):
+        pass
+    class normatively_equivalent_or_worse(normatively_comparable):
+        domain = [Allowed]
+    class normatively_equivalent_or_better(normatively_comparable):
+        range = [Allowed]
+        inverse_property = normatively_equivalent_or_worse
+    class normatively_strictly_worse(normatively_equivalent_or_worse, normatively_not_equivalent):
+        range = [Disallowed]
+        domain = [Obliged]
+    class normatively_strictly_better(normatively_equivalent_or_better, normatively_not_equivalent):
+        range = [Obliged]
+        domain = [Disallowed]
+        inverse_property = normatively_strictly_worse
+    class strictly_equivalent(ObjectProperty, normatively_equivalent_or_better, normatively_equivalent_or_worse, SymmetricProperty):
+        domain = [Allowed]
+        range = [Allowed]
+    Inverse(normatively_not_equivalent)
+    Inverse(strictly_equivalent)
     AllDisjoint([Custom, Document])
     AllDisjoint([Treaty, NonBindingInternationalAgreement])
     Prohibition.is_a.append(And([allows.only(Obliged), allows.some(Obliged), disallows.only(Disallowed), disallows.some(Disallowed)]))
-    Prohibition.is_a.append(Obligation)
     AllowedAndDisallowed.is_a.append(And([Disallowed, Allowed]))
     Disallowed.is_a.append(disallowed_by.some(Prohibition))
     Disallowed.is_a.append(normatively_strictly_better.some(Allowed))
@@ -661,16 +763,16 @@ with onto:
     ObservationOfViolation.is_a.append(And([Observation, played_by.some(Disallowed)]))
     Allowed.is_a.append(normatively_equivalent_or_worse.some(NormativelyQualified))
     Allowed.is_a.append(allowed_by.some(Permission))
-    Code.is_a.append(bears.some(And([Norm, utterer.some(LegislativeBody)])))
+    # Code.is_a.append(bears.some(And([Norm, utterer.some(LegislativeBody)])))
     Code.is_a.append(bears.only(utterer.some(LegislativeBody)))
-    Statute.is_a.append(bears.some(And([Norm, utterer.some(LegalPerson)])))
+    # Statute.is_a.append(bears.some(And([Norm, utterer.some(LegalPerson)])))
     Statute.is_a.append(bears.only(utterer.some(LegalPerson)))
-    LegalSource.is_a.append(bears.some(Or([Norm, LegalExpression])))
-    Contract.is_a.append(bears.only(utterer.some(Or([NaturalPerson, LegalPerson]))))
-    Contract.is_a.append(bears.some(And([Norm, utterer.some(Or([NaturalPerson, LegalPerson]))])))
+    # LegalSource.is_a.append(bears.some(Or([Norm, LegalExpression])))
+    # Contract.is_a.append(bears.only(utterer.some(Or([NaturalPerson, LegalPerson]))))
+    # Contract.is_a.append(bears.some(And([Norm, utterer.some(Or([NaturalPerson, LegalPerson]))])))
     BeliefInViolation.is_a.append(And([towards.some(Disallowed), Belief]))
     LegalExpression.is_a.append(attitude.some(created_by.some(PublicAct)))
-    Regulation.is_a.append(bears.some(And([Norm, utterer.some(LegislativeBody)])))
+    # Regulation.is_a.append(bears.some(And([Norm, utterer.some(LegislativeBody)])))
     Regulation.is_a.append(bears.only(utterer.some(LegislativeBody)))
     NormativelyQualified.is_a.append(qualified_by.some(Norm))
     NormativelyQualified.is_a.append(normatively_comparable.some(NormativelyQualified))
